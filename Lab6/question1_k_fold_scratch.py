@@ -23,8 +23,8 @@ def separating_data_into_folds(k,X,y):
         X_fold=[]
         y_fold=[]
 
-        start_p=i * fold_size   #eg for i=0 start=0 * 6=0 and end =start + fold_size =0+6=6
-        end_p=start_p + fold_size
+        start_p = i * fold_size   #eg for i=0 start=0 * 6=0 and end =start + fold_size =0+6=6
+        end_p = start_p + fold_size
 
         for j in range(start_p,end_p):
             X_fold.append(X[j])
@@ -48,18 +48,6 @@ def cross_validation(k,X,y,fold_data):
                 y_train.extend(fold_data[j][1])
 
     return X_train,y_train,X_test,y_test
-
-def k_fold_cross_validation(k,fold_data):
-    x=[]
-    for i in range(0,len(fold_data)):
-        x.append(fold_data[i][0])
-    y=[]
-    for j in range(len(fold_data)):
-        y.append(fold_data[j][1])
-
-    # for all_folds_x in range(len(x)):
-    #     fold=[]
-    #     # for each_fold in range(0,len())/
 
 def k_cross_val(k,X,y):
         fold_size=len(X)//k
@@ -90,10 +78,10 @@ def implement_linear_regression(k,X_fold,y_fold):
                 X_train_folds.extend(X_fold[j])
                 y_train_folds.extend(y_fold[j])
 
-        X_combined=X_train_folds+ X_test_fold
-        y_combined=y_train_folds + y_test_fold
+        # X_combined=X_train_folds+ X_test_fold
+        # y_combined=y_train_folds + y_test_fold
 
-        r2=linear_regression(X_combined,y_combined,0.01,200,0.1)
+        r2=linear_regression(X_train_folds,y_train_folds,X_test_fold,y_test_fold,0.01,200,0.1)
         r2_scores.append(r2)
 
     return r2_scores
@@ -108,7 +96,6 @@ def main():
     # lr=linear_regression.linear_regression('simulated_data_multiple_linear_regression_for_ML.csv',0,5,6,1e-6,1000)
     # print(lr)
     # X_train,y_train,X_test,y_test=cross_validation(10,X,y,data_folds)
-    data=k_fold_cross_validation(10,data_folds)
     X_fold,y_fold=k_cross_val(10,X,y)
     r2=implement_linear_regression(10,X_fold,y_fold)
     for i in range(len(r2)):
@@ -117,6 +104,7 @@ def main():
     for i in r2:
         sum=sum+i
     print(sum/len(r2))
+
 
 
 

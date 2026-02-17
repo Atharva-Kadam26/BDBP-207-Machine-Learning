@@ -3,7 +3,7 @@ import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 
-def linear_regression(X,y,alpha,iterations,test_s):
+def linear_regression(X_train,y_train,X_test,y_test,alpha,iterations,test_s):
     # def load_data(filename,feature_start,feature_end,y_column):
     #   data= pd.read_csv(filename)
     #   X_df = data.iloc[:,feature_start:feature_end]
@@ -105,7 +105,7 @@ def linear_regression(X,y,alpha,iterations,test_s):
 
     def execute():
       # X,y=load_data(filename,feature_start,feature_end,y_column)
-      X_train, X_test, y_train, y_test = split_data(X,y)
+      # X_train, X_test, y_train, y_test = split_data(X,y)
       X_train_scaled,X_test_scaled=standardize_data(X_train,X_test)
       X_train_scale_int,len_X=x0_intercept(X_train_scaled)
       thetas=initialise_thetas(len_X)
