@@ -1,7 +1,7 @@
 """Implement L2-norm and L1-norm from scratch"""
 
 
-"""L1-Norm From Scratch"""
+"""L2-Norm From Scratch"""
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
@@ -42,7 +42,7 @@ def initialise_thetas(len_X):
     thetas=[]
     for i in range(len_X):
         thetas.append(0)
-    theta = np.array(thetas)
+    theta = np.array(thetas,dtype=float)
     return theta
 
 def hypothesis_func(x_train,theta):
@@ -66,7 +66,7 @@ def cost_function(x_train,y_train,theta,lamb):
     """L1 Regularisation"""
     l1_norm = 0
     for j in range(1,len(theta)):
-        l1_norm += abs(theta[j])
+        l1_norm += theta[j]
 
     return total_error + lamb * l1_norm
 
@@ -82,20 +82,13 @@ def gradient_descent_with_l1_norm(x_train,y_train,theta,alpha,lamb,iterations):
             for k in range(len(y_train)):
                 gradient += error[k] * x_train[k][j]
 
-            #L1-reg term
-
+            #L2 term
             if j==0:
-                reg=0
+                reg_term = 0
             else:
-                if theta[j] > 0:
-                    reg = lamb
-                elif theta[j] < 0:
-                    reg = -lamb
+                reg = 2*(lamb * theta[j])
 
-                else:
-                    reg = 0
-
-            theta[j] = theta[j] - alpha * (gradient + reg)
+                theta[j] = theta[j] - alpha * (gradient + reg)
 
     return theta
 
@@ -107,7 +100,7 @@ def main():
     x_train, len_X = x0_intercept(X_train_scaled)
     theta= initialise_thetas(len_X)
     h_0x=hypothesis_func(x_train,theta)
-    j_0x=cost_function(x_train,y_train,theta,h_0x)
+    j_0x=cost_function(x_train,y_train,theta,0.1)
     up_thetas=gradient_descent_with_l1_norm(x_train,y_train,theta,0.001,0.1,2000)
     print(up_thetas)
 
