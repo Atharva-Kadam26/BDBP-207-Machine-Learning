@@ -33,10 +33,10 @@ def ordinal_encoding_column(column):    #COnvert one column of categories to num
 
     return encoded_vals , mapping
 
-def encoding_the_whole_data(data,columns):
+def encoding_the_whole_data(data):
     encoded_data={}
     for column in data.columns:
-        encoded_column,mapping=ordinal_encoding_column(columns)
+        encoded_column,mapping=ordinal_encoding_column(data[column])
         data[column]=encoded_column
         encoded_data[column]=mapping
 
@@ -46,14 +46,13 @@ def encoding_the_whole_data(data,columns):
 
 def main():
     data = load_data('breast-cancer_2.csv')
-    encoded_vals, mapping = ordinal_encoding_column(data)
-    print(encoded_vals)
-    print(mapping)
+    encoded_vals, mapping = ordinal_encoding_column(data['age'])
     for col in mapping:
         print(col,mapping[col])
 
-    encoded_data = encoding_the_whole_data(data,)
-    print(encoded_data)
+    encoded_data,mapping = encoding_the_whole_data(data)
+    print("Encoded data :",encoded_data)
+
 
 if __name__ == '__main__':
     main()
