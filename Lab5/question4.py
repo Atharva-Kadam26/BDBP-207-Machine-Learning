@@ -3,7 +3,7 @@ from sklearn.impute import SimpleImputer
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import r2_score
+from sklearn.metrics import accuracy_score
 import numpy as np
 import pandas as pd
 
@@ -40,9 +40,9 @@ def logistic_regression(X_train_scale,y_tr,X_test_scale):
     y_pred=model.predict(X_test_scale)
     return y_pred
 
-def r2(y_test,y_pred):
-    r_2=r2_score(y_test,y_pred)
-    return r_2
+def accuracy(y_test,y_pred):
+    acc=accuracy_score(y_test,y_pred)
+    return acc
 
 def main():
     X,df=load_data("breast_cancer_dataset.csv")
@@ -53,7 +53,8 @@ def main():
     y_pred=logistic_regression(X_train_scaled,y_train,X_test_scaled)
     print(y_pred)
     print(y_test.tolist())
-    print(r2(y_test,y_pred))
+    acc=accuracy(y_test,y_pred)
+    print(acc)
 
 
 

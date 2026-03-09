@@ -10,7 +10,7 @@ def sigmoid_func(z):
 X=[]
 y=[]
 for i in range(-100,100):
-    pt =i * 0.1
+    pt =i*0.1
     X.append(pt)
     y.append(sigmoid_func(pt))
     i += 1
